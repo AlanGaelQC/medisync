@@ -1,7 +1,18 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-export default function PrivateRoute({ children }) {
+// Protege rutas por sesión y por rol
+export default function PrivateRoute({ children, rol }) {
     const { usuario } = useAuth();
-    return usuario ? children : <Navigate to="/login" replace />;
+
+    //Sin sesión -> al login
+    if (!usuario) return <Navigate to="/login" replace />;
+
+    // Rol incorrecto -> a su vista correspondiente
+    if (rol && usuario.rol !== roll) {
+        if (usuario.rol === 'medico') return <Navigate to="/medico/dashboard" replace />;
+        if (usuario.rol === 'paciente') return <Navigate to="/paciente/expediente" replace />;
+    }
+
+    return children;
 }

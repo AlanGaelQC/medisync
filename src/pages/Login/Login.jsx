@@ -23,13 +23,19 @@ export default function Login() {
 
             //Devuelve { token, datos del usuario }
             login(data.token, data);
-            navigate('/');
-        } catch (err) {
-            setError(err.response?.data?.error || 'Credenciales invalidas.');
-        } finally {
+            
+            // Redirige según el rol
+            const rol = data.rol ?? data.rol ?? data.usuario?.rol;
+            if (rol === 'medico') navigate('/medico/dashboard');
+            else if (rol === 'paciente') navigate('/paciente/expediente');
+            else navigate('/'); // 
+            
+          } catch (err) {
+            setError(err.response?.data?.error || 'Credenciales inválidas.');
+          } finally {
             setLoading(false);
+          }
         }
-    }
 
     return (
         <div style={s.page}>
