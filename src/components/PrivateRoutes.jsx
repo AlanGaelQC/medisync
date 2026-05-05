@@ -9,7 +9,7 @@ export default function PrivateRoute({ children, rol }) {
     if (!usuario) return <Navigate to="/login" replace />;
 
     // Rol incorrecto -> a su vista correspondiente
-    if (rol && usuario.rol !== roll) {
+    if (rol && usuario.rol !== rol) {
         if (usuario.rol === 'medico') return <Navigate to="/medico/dashboard" replace />;
         if (usuario.rol === 'paciente') return <Navigate to="/paciente/expediente" replace />;
     }

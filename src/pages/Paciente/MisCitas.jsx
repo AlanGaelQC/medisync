@@ -33,7 +33,7 @@ export default function MisCitas () {
     const citasFiltradas = citas.filter(c => {
         const fecha = c.fecha ?? c.date ?? '';
         if (filtro === 'proximas') return fecha >= hoy && c.estado !== 'cancelada';
-        if (filtro === 'historial') return fecha < hoy || c. estado === 'completada';
+        if (filtro === 'historial') return fecha < hoy || c.estado === 'completada';
         return true;
     });
 

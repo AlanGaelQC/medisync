@@ -1,87 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import api from '../../api/axios';
-
-export default function Login() {
-    const [form, setForm] = useState({ email: '', password: '' });
-    const [error, setError] = useState('');
-    const [ loading, setLoading] = useState(false);
-    const { login } = useAuth();
-    const navigate = useNavigate();
-
-    async function handleSubmit(e) {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
-        try{
-            // POST /auth/login -- endpoint
-            const { data } = await api.post('/auth/login', {
-                email: form.email,
-                password: form.password,
-            });
-
-            //Devuelve { token, datos del usuario }
-            login(data.token, data);
-            
-            // Redirige según el rol
-            const rol = data.rol ?? data.rol ?? data.usuario?.rol;
-            if (rol === 'medico') navigate('/medico/dashboard');
-            else if (rol === 'paciente') navigate('/paciente/expediente');
-            else navigate('/'); // 
-            
-          } catch (err) {
-            setError(err.response?.data?.error || 'Credenciales inválidas.');
-          } finally {
-            setLoading(false);
-          }
-        }
-
-    return (
-        <div style={s.page}>
-            {/* Panel izquierdo */}
-            <div style={s.side}>
-                <div style={s.logo}>⚕️</div>
-                <h2 style={s.brand}>MediSync</h2>
-                <p style={s.brandSub}>Sistema de gestión médica</p>
-            </div>
-
-            {/* Formulario */}
-            <div style={s.formWrap}>
-                <h3 style={s.title}>Iniciar sesión</h3>
-                <form onSubmit={handleSubmit} style={s.form}>
-                    <div style={s.group}>
-                        <label style={s.label}>Correo electrónico</label>
-                        <input
-                            style={s.input}
-                            type="email"
-                            required
-                            placeholder="ana@clinica.com"
-                            value={form.email}
-                            onChange={e.setForm(f => ({ ...f, email: e.target.value }))}
-                        />
-                    </div>
-                    <div style={s.group}>
-                        <label style={s.label}>Contraseña</label>
-                        <input
-                            style={s.input}
-                            type="password"
-                            required
-                            placeholder="••••••••"
-                            value={form.password}
-                            onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-                        />
-                    </div>
-                    {error && <p style={s.error}>{error}</p>}
-                    <button style={s.btn} type="submit" disabled={loading}>
-                        {loading ? 'Entrando...' : 'Entrar al sistema'}
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
-}
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -119,7 +35,7 @@ export default function Login() {
     <div style={s.page}>
       {/* Panel izquierdo */}
       <div style={s.side}>
-        <div style={s.logo}>🏥</div>
+        <div style={s.logo}>⚕️</div>
         <h2 style={s.brand}>MediSync</h2>
         <p style={s.brandSub}>Sistema de gestión médica</p>
       </div>

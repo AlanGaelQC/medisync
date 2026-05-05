@@ -1,31 +1,32 @@
-import { Children, createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ Children }) {
-    const [usuario, setUsuario] = useState(() => {
-        const saved = localStorage.getItem('usuario');
-    });
-    
-    function login(token, datosUsuario) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('usuario', JSON.stringify(datosUsuario));
-        setUsuario(datosUsuario);
-    }
+export function AuthProvider({ children }) {
+  const [usuario, setUsuario] = useState(() => {
+    const saved = localStorage.getItem('usuario');
+    return saved ? JSON.parse(saved) : null; // ← faltaba el return
+  });
 
-    function logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('usuario'),
-        setUsuario(null);
-    }
+  function login(token, datosUsuario) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('usuario', JSON.stringify(datosUsuario));
+    setUsuario(datosUsuario);
+  }
 
-    return (
-        <AuthContext.Provider value={{ usuario, login, logout }}>
-            {Children}
-        </AuthContext.Provider>
-    );
+  function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario'); // ← tenías coma en lugar de punto y coma
+    setUsuario(null);
+  }
+
+  return (
+    <AuthContext.Provider value={{ usuario, login, logout }}>
+      {children} 
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }
