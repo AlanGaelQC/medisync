@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base URL apuntada a la API en AWS
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://18.232.161.77:3000',
+    baseURL: process.env.REACT_APP_API_URL,
 });
 
 // Inyecta el token JWT en cada request automáticamente
