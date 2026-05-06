@@ -45,7 +45,9 @@ export default function App() {
 // Componente que lee el rol y redirige a la vista correspondiente
 function RedirigirSegunRol() {
     const usuario =JSON.parse(localStorage.getItem('usuario') || '{}');
-    if (usuario?.rol === 'medico') return <Navigate to="/medico/dashboard" replace />;
-    if (usuario?.rol === 'paciente') return <Navigate to="/paciente/expediente" replace />;
+    if (usuario?.rol === 'medico')        return <Navigate to="/medico/dashboard" replace />;
+    if (usuario?.rol === 'recepcionista') return <Navigate to="/medico/dashboard" replace />;
+    if (usuario?.rol === 'admin')         return <Navigate to="/medico/dashboard" replace />;
+    if (usuario?.rol === 'paciente')      return <Navigate to="/paciente/expediente" replace />;
     return <Navigate to="/login" replace />;
 }
