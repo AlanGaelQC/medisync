@@ -8,7 +8,7 @@ const login = async (req, res, next) => {
     const [rows] = await db.query('SELECT * FROM usuarios WHERE email = ? AND password = ?', [email, password]);
     if (!rows[0]) return res.status(401).json({ error: 'Credenciales incorrectas' });
     const token = jwt.sign({ id: rows[0].id, rol: rows[0].rol }, process.env.JWT_SECRET, { expiresIn: '8h' });
-    res.json({ token });
+    res.json({ token, id: rows[0].id, nombre: rows[0].nombre, rol: rows[0].rol });
   } catch (err) { next(err); }
 };
 
