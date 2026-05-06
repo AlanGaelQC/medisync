@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
+app.use(require('cors')());
 app.use(express.json());
 
 // Rutas
