@@ -1,5 +1,7 @@
 const express = require('express');
+const https = require('https');
 const dotenv = require('dotenv');
+const selfsigned = require('selfsigned');
 
 dotenv.config();
 
@@ -19,8 +21,17 @@ app.use('/dashboard', require('./routes/dashboardRoutes'));
 app.use(require('./middleware/errorMiddleware'));
 
 const PORT = process.env.PORT || 3000;
+const PORT_HTTPS = process.env.PORT_HTTPS || 3001;
+
 app.listen(PORT, () => {
-  console.log(`MediSync backend corriendo en puerto ${PORT}`);
+  console.log(`MediSync backend HTTP corriendo en puerto ${PORT}`);
+});
+
+const attrs = [{ name: 'commonName', value: 'medisync' }];
+const pems = selfsigned.generate(attrs, { days: 365 });
+
+https.createServer({ key: pems.private, cert: pems.cert }, app).listen(PORT_HTTPS, () => {
+  console.log(`MediSync backend HTTPS corriendo en puerto ${PORT_HTTPS}`);
 });
 
 module.exports = app;
