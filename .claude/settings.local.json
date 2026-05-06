@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/VladG/OneDrive/Desktop/**)",
+      "Bash(chmod 400 \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no -o ConnectTimeout=15 ec2-user@18.232.161.77 \"echo 'SSH OK' && uname -a\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash - 2>&1 | tail -5 && sudo dnf install -y nodejs 2>&1 | tail -5\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"node -v && npm -v && sudo npm install -g pm2 2>&1 | tail -3\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"pm2 --version\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"which pm2 || sudo find /usr /usr/local -name 'pm2' -type f 2>/dev/null | head -5\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"sudo ln -sf /usr/lib/nodejs20/lib/node_modules/pm2/bin/pm2 /usr/local/bin/pm2 && pm2 --version\")",
+      "Bash(ssh -i /c/Users/VladG/OneDrive/Desktop/medisync-key.pem -o StrictHostKeyChecking=no ec2-user@18.232.161.77 ' *)",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"sudo dnf install -y git 2>&1 | tail -3 && git --version\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"cd /home/ec2-user/medisync/backend && npm install 2>&1 | tail -5\")",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"ls /home/ec2-user/medisync/\")",
+      "Bash(scp -i /c/Users/VladG/OneDrive/Desktop/medisync-key.pem -o StrictHostKeyChecking=no -r /c/Users/VladG/OneDrive/Desktop/medisync/medisync/backend/src /c/Users/VladG/OneDrive/Desktop/medisync/medisync/backend/package.json /c/Users/VladG/OneDrive/Desktop/medisync/medisync/backend/package-lock.json /c/Users/VladG/OneDrive/Desktop/medisync/medisync/backend/schema.sql ec2-user@18.232.161.77:/home/ec2-user/medisync/backend/)",
+      "Bash(ssh -i \"/c/Users/VladG/OneDrive/Desktop/medisync-key.pem\" -o StrictHostKeyChecking=no ec2-user@18.232.161.77 \"ls /home/ec2-user/medisync/backend/\")",
+      "Bash(ssh -i *)",
+      "Bash(curl -s --connect-timeout 10 http://18.232.161.77:3000)",
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}
