@@ -3,6 +3,7 @@ import axios from 'axios';
 // Base URL apuntada a la API en AWS
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
+    headers: { 'ngrok-skip-browser-warning': 'true' },
 });
 
 // Inyecta el token JWT en cada request automáticamente
