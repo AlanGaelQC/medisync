@@ -10,12 +10,12 @@ app.use(require('cors')());
 app.use(express.json());
 
 // Rutas
-app.use('/auth', require('./routes/authRoutes'));
-app.use('/pacientes', require('./routes/pacienteRoutes'));
-app.use('/citas', require('./routes/citaRoutes'));
-app.use('/medicos', require('./routes/medicoRoutes'));
-app.use('/expediente', require('./routes/expedienteRoutes'));
-app.use('/dashboard', require('./routes/dashboardRoutes'));
+app.use('/api/v1/auth', require('./routes/authRoutes'));
+app.use('/api/v1/pacientes', require('./routes/pacienteRoutes'));
+app.use('/api/v1/citas', require('./routes/citaRoutes'));
+app.use('/api/v1/medicos', require('./routes/medicoRoutes'));
+app.use('/api/v1/expediente', require('./routes/expedienteRoutes'));
+app.use('/api/v1/dashboard', require('./routes/dashboardRoutes'));
 
 // Error middleware
 app.use(require('./middleware/errorMiddleware'));

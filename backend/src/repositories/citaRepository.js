@@ -1,6 +1,6 @@
 const getConnection = require('../db');
 
-const findToday = async () => {
+const findAll = async () => {
   const db = await getConnection();
   const [rows] = await db.query('SELECT * FROM citas ORDER BY fecha ASC');
   return rows;
@@ -22,4 +22,4 @@ const remove = async (id) => {
   await db.query('DELETE FROM citas WHERE id = ?', [id]);
 };
 
-module.exports = { findToday, create, update, remove };
+module.exports = { findAll, create, update, remove };

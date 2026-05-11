@@ -6,11 +6,14 @@ const api = axios.create({
     headers: { 'ngrok-skip-browser-warning': 'true' },
 });
 
-// Inyecta el token JWT en cada request automáticamente
+// Inyecta el token JWT y el prefijo /api/v1 en cada request automáticamente
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config
+    if (config.url && !config.url.startsWith('/api/')) {
+        config.url = '/api/v1' + (config.url.startsWith('/') ? config.url : '/' + config.url);
+    }
+    return config;
 });
 
 // Si el token expira manda de regreso al login

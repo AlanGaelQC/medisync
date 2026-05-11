@@ -1,9 +1,9 @@
 const repo = require('../repositories/citaRepository');
 const { notificarCita } = require('../services/notificacionService');
 
-const getToday = async (req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
-    const citas = await repo.findToday();
+    const citas = await repo.findAll();
     res.json(citas);
   } catch (err) { next(err); }
 };
@@ -30,4 +30,4 @@ const remove = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-module.exports = { getToday, create, update, remove };
+module.exports = { getAll, create, update, remove };
