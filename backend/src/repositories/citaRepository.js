@@ -2,7 +2,7 @@ const getConnection = require('../db');
 
 const findToday = async () => {
   const db = await getConnection();
-  const [rows] = await db.query('SELECT * FROM citas WHERE DATE(fecha) = CURDATE()');
+  const [rows] = await db.query('SELECT * FROM citas ORDER BY fecha ASC');
   return rows;
 };
 
