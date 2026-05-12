@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://gender-fraction-basic-lan.trycloudflare.com';
