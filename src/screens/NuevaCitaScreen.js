@@ -39,9 +39,9 @@ const NuevaCitaScreen = ({ onGoBack, citaParaEditar }) => {
     }
 
     const datosCita = {
-      titulo, tipo, fecha, hora, profesional, ubicacion, telefono, email, notas
+      titulo, tipo, fecha, hora_inicio: hora, profesional, ubicacion, telefono, email, notas
     };
-
+    
     setLoading(true);
     try {
       const url = citaParaEditar 

@@ -47,7 +47,7 @@ const RegistroScreen = ({ onRegisterSuccess, onBackToLogin }) => {
           <Text style={styles.label}>Nombre Completo</Text>
           <TextInput 
             style={styles.input} 
-            placeholder="Juan Pérez" 
+            placeholder="Ana López" 
             value={nombre} 
             onChangeText={setNombre} 
           />
@@ -57,7 +57,7 @@ const RegistroScreen = ({ onRegisterSuccess, onBackToLogin }) => {
           <Text style={styles.label}>Email</Text>
           <TextInput 
             style={styles.input} 
-            placeholder="juan@correo.com" 
+            placeholder="ana@clinica.com" 
             value={email} 
             onChangeText={setEmail}
             keyboardType="email-address"

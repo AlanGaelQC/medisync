@@ -70,7 +70,7 @@ const DetalleCitaScreen = ({ cita, onGoBack, onEditar }) => {
           <View style={styles.infoRow}>
             <View>
               <Text style={styles.infoLabel}>Hora</Text>
-              <Text style={styles.infoValue}>{cita.hora}</Text>
+              <Text style={styles.infoValue}>{cita.hora_inicio}</Text>
             </View>
           </View>
           <View style={styles.infoRow}>

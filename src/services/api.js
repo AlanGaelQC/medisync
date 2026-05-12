@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://54.227.136.87:3000';
+export const BASE_URL = 'https://gender-fraction-basic-lan.trycloudflare.com';

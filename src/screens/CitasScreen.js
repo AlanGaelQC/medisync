@@ -15,13 +15,30 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
       const response = await fetch(`${BASE_URL}/citas`);
       const data = await response.json();
       
+      Alert.alert("Lo que manda AWS:", JSON.stringify(data).substring(0, 250));
+      
       if (response.ok) {
-        setCitas(data);
+        // Validación de seguridad: Asegurarnos que data sea una lista
+        if (Array.isArray(data)) {
+          setCitas(data);
+        } else if (data && data.citas) {
+          // Por si Gael lo manda dentro de un objeto { citas: [...] }
+          setCitas(data.citas);
+        } else if (data && data.body) {
+           // A veces AWS API Gateway lo manda dentro de "body"
+           const parsedBody = typeof data.body === 'string' ? JSON.parse(data.body) : data.body;
+           setCitas(Array.isArray(parsedBody) ? parsedBody : []);
+        } else {
+          console.log("El formato no es un arreglo reconocido.");
+          setCitas([]);
+        }
       } else {
-        setCitas([]); // Lista vacía si hay error en la respuesta
+        console.log("Error en la respuesta del servidor:", response.status);
+        setCitas([]); 
       }
     } catch (error) {
-      setCitas([]); // Lista vacía si falla la conexión a AWS
+      console.error("Error al conectar con AWS:", error);
+      setCitas([]); 
       Alert.alert("Error de conexión", "No se pudo conectar al servidor de AWS.");
     } finally {
       setLoading(false);
@@ -58,6 +75,7 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
     );
   };
 
+  // Se ejecuta al cargar la pantalla
   useEffect(() => {
     cargarCitas();
   }, []);
@@ -68,9 +86,15 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
       
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Mis Citas</Text>
-        <TouchableOpacity onPress={onLogout}>
-          <Text style={styles.logoutText}>Salir</Text>
-        </TouchableOpacity>
+        <View style={styles.headerButtons}>
+          {/* Botón de recarga manual súper útil para pruebas y presentaciones */}
+          <TouchableOpacity onPress={cargarCitas} style={styles.refreshBtn}>
+            <Text style={styles.refreshText}>↻ Actualizar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onLogout}>
+            <Text style={styles.logoutText}>Salir</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.summaryContainer}>
@@ -78,8 +102,7 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
           <Text style={styles.summaryNumber}>{citas.length}</Text>
           <Text style={styles.summaryLabel}>Total</Text>
         </View>
-        <View style={styles.summaryCard}>
-          {/* El número de próximas también dependerá de los datos reales, por ahora lo dejamos estático o puedes calcularlo luego */}
+       <View style={styles.summaryCard}>
           <Text style={styles.summaryNumber}>{citas.length}</Text> 
           <Text style={styles.summaryLabel}>Próximas</Text>
         </View>
@@ -90,7 +113,7 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
       ) : (
         <FlatList
           data={citas}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
           contentContainerStyle={styles.listContent}
           ListEmptyComponent={<Text style={{textAlign: 'center', marginTop: 20, color: '#6C757D'}}>No hay citas registradas o no hay conexión al servidor.</Text>}
           renderItem={({ item }) => (
@@ -99,11 +122,11 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
                 style={styles.citaCard}
                 onPress={() => onVerDetalle && onVerDetalle(item)}
               >
-                <Text style={styles.tipoTag}>{item.tipo}</Text>
-                <Text style={styles.citaTitulo}>{item.titulo}</Text>
+                <Text style={styles.tipoTag}>{item.tipo || 'Sin tipo'}</Text>
+                <Text style={styles.citaTitulo}>{item.titulo || 'Cita sin título'}</Text>
                 <View style={styles.infoRow}>
-                  <Text style={styles.infoText}>Fecha: {item.fecha}</Text>
-                  <Text style={styles.infoText}>  Hora: {item.hora}</Text>
+                  <Text style={styles.infoText}>Fecha: {item.fecha || 'N/A'}</Text>
+                  <Text style={styles.infoText}>  Hora: {item.hora_inicio || 'N/A'}</Text>
                 </View>
               </TouchableOpacity>
               
@@ -129,6 +152,9 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8F9FA' },
   headerContainer: { padding: 20, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   headerTitle: { fontSize: 28, fontWeight: 'bold', color: '#1A2A3A' },
+  headerButtons: { flexDirection: 'row', alignItems: 'center' },
+  refreshBtn: { marginRight: 15, backgroundColor: '#F1F5F9', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8 },
+  refreshText: { color: '#1A2A3A', fontSize: 14, fontWeight: 'bold' },
   logoutText: { color: '#E74C3C', fontSize: 16, fontWeight: 'bold' },
   summaryContainer: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, marginBottom: 20 },
   summaryCard: { backgroundColor: '#FFF', width: '48%', padding: 15, borderRadius: 12, borderWidth: 1, borderColor: '#E9ECEF', alignItems: 'flex-start', elevation: 2 },

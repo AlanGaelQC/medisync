@@ -14,7 +14,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
     if (email === 'admin@medisync.com' && password === '12345') {
       onLoginSuccess();
       return;
-      if (email === 'juan@gmail.com' && password === '1234') {
+      if (email === 'ana@clinica.com' && password === '1234') {
   onLoginSuccess();
   return;
 }     
