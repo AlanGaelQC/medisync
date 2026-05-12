@@ -37,8 +37,8 @@ Sistema digital para modernizar la operación de la Clínica San Ángel. Permite
 | Autenticación | JWT |
 | Almacenamiento | AWS S3 |
 | Notificaciones | AWS SNS |
-| Despliegue Web | AWS Amplify |
-| Despliegue Backend | AWS EC2 |
+| Despliegue Web | AWS Amplify — https://main.d3o9k3ood7ev1i.amplifyapp.com |
+| Despliegue Backend | AWS EC2 — 3.86.11.18 |
 
 ---
 
