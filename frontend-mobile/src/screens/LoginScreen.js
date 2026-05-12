@@ -9,18 +9,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    // 1. EL "PUENTE" PARA LA EXPOSICIÓN
-    // Si usas estos datos, entras aunque el servidor de Gael esté apagado
-    if (email === 'admin@medisync.com' && password === '12345') {
-      onLoginSuccess();
-      return;
-      if (email === 'ana@clinica.com' && password === '1234') {
-  onLoginSuccess();
-  return;
-}     
-    }
-
-    // 2. INTENTO DE CONEXIÓN REAL AL AWS
+    // CONEXIÓN REAL AL AWS
     try {
       // Importamos la IP que configuramos en api.js
       const { BASE_URL } = require('../services/api');

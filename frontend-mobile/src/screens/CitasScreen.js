@@ -15,8 +15,6 @@ const CitasScreen = ({ onNuevaCita, onVerDetalle, onLogout }) => {
       const response = await fetch(`${BASE_URL}/citas`);
       const data = await response.json();
       
-      Alert.alert("Lo que manda AWS:", JSON.stringify(data).substring(0, 250));
-      
       if (response.ok) {
         // Validación de seguridad: Asegurarnos que data sea una lista
         if (Array.isArray(data)) {

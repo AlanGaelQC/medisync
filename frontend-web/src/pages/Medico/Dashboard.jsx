@@ -7,7 +7,7 @@ const TIPO_BG = { consulta:'#b8dcff', seguimiento: '#beffce', urgencia:'#fde8d4'
 const TIPO_TEXT = { consulta: '#1a3a5c', seguimiento: '#1a5c35', urgencia:'#a72424'};
 
 export default function Dashboard() {
-    const { usuario, logout } = useAuth;
+    const { usuario, logout } = useAuth();
     const navigate = useNavigate();
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);

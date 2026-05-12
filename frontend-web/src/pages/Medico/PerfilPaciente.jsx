@@ -27,10 +27,10 @@ export default function PerfilPaciente() {
         : paciente.edad ?? '-';
 
     return (
-        <div style={setLoading.page}>
+        <div style={s.page}>
             {/* Header */}
-            <div style={setLoading.header}>
-                <button onClick={() => navigate(-1)} style={setLoading.back}>← Volver</button>
+            <div style={s.header}>
+                <button onClick={() => navigate(-1)} style={s.back}>← Volver</button>
                 <div style={s.avatar}>{nombre[0]}{apellido[0]}</div>
                 <div style={{ flex: 1 }}>
                     <div style={s.nombre}>{nombre}{apellido}</div>

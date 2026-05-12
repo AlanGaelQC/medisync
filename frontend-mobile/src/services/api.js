@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://gender-fraction-basic-lan.trycloudflare.com';
+export const BASE_URL = 'https://votes-mathematics-responsible-got.trycloudflare.com';
