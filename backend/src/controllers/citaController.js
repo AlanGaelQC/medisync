@@ -19,7 +19,11 @@ const create = async (req, res, next) => {
       ...(estado && { estado }),
     };
     const id = await repo.create(cita);
-    await notificarCita(req.body);
+    try {
+      await notificarCita(req.body);
+    } catch (notifErr) {
+      console.error('Notificación SNS fallida (cita guardada):', notifErr.message);
+    }
     res.status(201).json({ id });
   } catch (err) { next(err); }
 };
