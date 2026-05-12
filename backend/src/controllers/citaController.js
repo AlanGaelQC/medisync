@@ -10,7 +10,15 @@ const getAll = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const id = await repo.create(req.body);
+    const { paciente_id, medico_id, fecha, hora_inicio, hora, estado } = req.body;
+    const cita = {
+      paciente_id,
+      medico_id,
+      fecha,
+      hora: hora ?? hora_inicio,
+      ...(estado && { estado }),
+    };
+    const id = await repo.create(cita);
     await notificarCita(req.body);
     res.status(201).json({ id });
   } catch (err) { next(err); }
