@@ -19,7 +19,13 @@ const login = async (req, res, next) => {
       if (pRows.length > 0) paciente_id = pRows[0].id;
     }
 
-    res.json({ token, id: usuario.id, nombre: usuario.nombre, rol: usuario.rol, paciente_id });
+    let medico_id = null;
+    if (usuario.rol === 'medico') {
+      const [mRows] = await db.query('SELECT id FROM medicos WHERE usuario_id = ?', [usuario.id]);
+      if (mRows.length > 0) medico_id = mRows[0].id;
+    }
+
+    res.json({ token, id: usuario.id, nombre: usuario.nombre, rol: usuario.rol, paciente_id, medico_id });
   } catch (err) { next(err); }
 };
 
