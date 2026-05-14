@@ -10,20 +10,26 @@ export default function Dashboard() {
     const { usuario, logout } = useAuth();
     const navigate = useNavigate();
     const [stats, setStats] = useState(null);
+    const [citas, setCitas] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        //GET /dashboard
-        api.get('/dashboard')
-            .then(({ data }) => setStats(data))
+        Promise.all([
+            api.get('/dashboard'),
+            api.get('/citas'),
+        ])
+            .then(([statsRes, citasRes]) => {
+                setStats(statsRes.data);
+                setCitas(Array.isArray(citasRes.data) ? citasRes.data : []);
+            })
             .catch(console.error)
             .finally(() => setLoading(false));
     }, []);
 
     const navItems = [
         { label: '📊 Dashboard', path: '/'},
-        { label: '📅 Agenda', path: '/agenda'},
-        { label: '👥 Pacientes', path: '/pacientes'},
+        { label: '📅 Agenda', path: '/medico/agenda'},
+        { label: '👥 Pacientes', path: '/medico/pacientes'},
     ];
 
     return (
@@ -56,7 +62,6 @@ export default function Dashboard() {
                                     { label: 'Citas hoy', val: stats?.citas_hoy ?? stats?.citasHoy ?? '-' },
                                     { label: 'Total pacientes', val: stats?.total_pacientes ?? stats?.totalPacientes ?? '-' },
                                     { label: 'Médicos activos', val: stats?.total_medicos ?? stats?.totalMedicos ?? '-' },
-                                    { label: 'Pendientes', val: stats?.pendientes ?? '-' },
                                 ].map(k => (
                                     <div key={k.label} style={s.kpiCard}>
                                         <div style={s.kpiLabel}>{k.label}</div>
@@ -68,9 +73,9 @@ export default function Dashboard() {
                             {/* Proximas Citas */}
                             <div style={s.card}>
                                 <div style={s.cardHeader}>Próximas citas</div>
-                                {(stats?.proximas_citas ?? stats?.citas ?? []).slice(0, 5).map((c, i) => (
+                                {citas.slice(0, 5).map((c, i) => (
                                     <div key={i} style={s.citaRow}>
-                                        <span style={s.citaHora}>{c.hora_inicio?.slice(0,5) ?? c.hora?.slice(0,5)}</span>
+                                        <span style={s.citaHora}>{(c.hora_inicio ?? c.hora ?? '').slice(0,5)}</span>
                                         <div style={s.citaAvatar}>
                                             {c.paciente_nombre?.[0] ?? c.paciente?.[0] ?? '?'}
                                         </div>
@@ -105,7 +110,7 @@ const s = {
   sidebar:    { width:180, background:'#fff', borderRight:'1px solid #e0e4ea', padding:'16px 0' },
   navItem:    { padding:'10px 18px', fontSize:13, color:'#555', cursor:'pointer', transition:'background .15s' },
   main:       { flex:1, padding:20, display:'flex', flexDirection:'column', gap:16 },
-  kpiRow:     { display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:12 },
+  kpiRow:     { display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12 },
   kpiCard:    { background:'#fff', borderRadius:8, padding:'16px 18px', boxShadow:'0 1px 3px rgba(0,0,0,.06)' },
   kpiLabel:   { fontSize:11, color:'#888', textTransform:'uppercase', letterSpacing:'.05em' },
   kpiVal:     { fontSize:28, fontWeight:700, color:'#1a1a2e', lineHeight:1.2, marginTop:4 },

@@ -83,7 +83,7 @@ export default function Agenda() {
                                     {citasEnHora(m.id, hora).map(c => (
                                         <div
                                         key={c.id}
-                                        onClick={() => navigate(`/pacientes/${c.paciente_id ?? c.pacienteId}`)}
+                                        onClick={() => navigate(`/medico/pacientes/${c.paciente_id ?? c.pacienteId}`)}
                                         style={{
                                             ...s.apptBlock,
                                             background:  TIPO_BG[c.tipo]     ?? '#e8f0f8',

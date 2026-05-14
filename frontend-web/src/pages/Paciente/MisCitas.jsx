@@ -5,7 +5,7 @@ import api from "../../api/axios";
 
 const ESTADO_BG = { pendiente:'#fef9e8', confirmada:'#e0f5ec', completada:'#f0f0f0', cancelada:'#fde8e8', en_curso:'#e8f0f8' };
 const ESTADO_TEXT = { pendiente:'#b8860b', confirmada:'#2a7a4b', completada:'#888', cancelada:'#c0392b', en_curso:'#1a3a5c'};
-const TIPO_LABEL = { consulta:' Cinsulta general', seguimiento:'Seguimiento', urgencia:'Urgencia', primera_vez:'Primera vez' };
+const TIPO_LABEL = { consulta:'Consulta general', seguimiento:'Seguimiento', urgencia:'Urgencia', primera_vez:'Primera vez' };
 
 export default function MisCitas () {
     const { usuario, logout } = useAuth();

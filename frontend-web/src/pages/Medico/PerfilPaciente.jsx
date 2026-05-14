@@ -33,7 +33,7 @@ export default function PerfilPaciente() {
                 <button onClick={() => navigate(-1)} style={s.back}>← Volver</button>
                 <div style={s.avatar}>{nombre[0]}{apellido[0]}</div>
                 <div style={{ flex: 1 }}>
-                    <div style={s.nombre}>{nombre}{apellido}</div>
+                    <div style={s.nombre}>{nombre} {apellido}</div>
                     <div style={s.meta}>
                         Exp. #{paciente.numero_expediente ?? paciente.id} · {edad} años · {paciente.sexo ?? '—'} · {paciente.tipo_sangre ?? '—'}
                     </div>
@@ -67,7 +67,7 @@ export default function PerfilPaciente() {
                         {!(paciente.consultas ?? paciente.historial)?.length && (
                             <p style={{ color:'#999', fontSize:13 }}>Sin consultas registradas.</p>
                         )}
-                        {(paciente.consulta ?? paciente.historial ?? []).map((c, i) => (
+                        {(paciente.consultas ?? paciente.historial ?? []).map((c, i) => (
                             <div key={i} style={s.histCard}>
                                 <div style={s.histTop}>
                                     <span style={s.histFecha}>
@@ -117,7 +117,7 @@ export default function PerfilPaciente() {
                             <p style={{ color:'#999', fontSize:13 }}>Sin medicamentos registrados.</p>
                         )}
                         {(paciente.medicamentos ?? []).map((m,i) => (
-                            <div key={i} style={s.medCarp}>
+                            <div key={i} style={s.medCard}>
                                 <div style={{ flex:1 }}>
                                     <div style={s.medNombre}>{m.nombre ?? m.name}</div>
                                     <div style={s.medDosis}>{m.dosis} - {m.frecuencia}</div>
