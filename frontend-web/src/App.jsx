@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 // Vista Médico
 import MedicoDashboard from './pages/Medico/Dashboard';
 import MedicoAgenda from './pages/Medico/Agenda';
+import MedicoListaPacientes from './pages/Medico/ListaPacientes';
 import MedicoPerfilPaciente from './pages/Medico/PerfilPaciente';
 
 // Vista Paciente
@@ -26,7 +27,8 @@ export default function App() {
                     {/* Vista Médicos */}
                     <Route path="/medico/dashboard" element={<PrivateRoute rol="medico"><MedicoDashboard /></PrivateRoute>} />
                     <Route path="/medico/agenda" element={<PrivateRoute rol="medico"><MedicoAgenda /></PrivateRoute>} />
-                    <Route path="/medico/pacientes/:id" element={<PrivateRoute rol= "medico"><MedicoPerfilPaciente /></PrivateRoute>} />
+                    <Route path="/medico/pacientes" element={<PrivateRoute rol="medico"><MedicoListaPacientes /></PrivateRoute>} />
+                    <Route path="/medico/pacientes/:id" element={<PrivateRoute rol="medico"><MedicoPerfilPaciente /></PrivateRoute>} />
 
                     {/* Vista Paciente */}
                     <Route path="/paciente/expediente" element={<PrivateRoute rol="paciente"><PacienteMiExpediente /></PrivateRoute>} />
