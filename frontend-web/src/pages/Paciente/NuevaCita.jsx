@@ -45,7 +45,7 @@ export default function NuevaCita() {
     try {
       // POST /citas — API de Alan
       await api.post('/citas', {
-        paciente_id: usuario?.id,
+        paciente_id: usuario?.paciente_id ?? usuario?.id,
         medico_id:   parseInt(form.medico_id),
         fecha:       form.fecha,
         hora_inicio: form.hora_inicio,

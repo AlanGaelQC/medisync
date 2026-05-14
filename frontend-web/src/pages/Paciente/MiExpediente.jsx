@@ -12,7 +12,7 @@ export default function MiExpediente() {
 
     useEffect(() => {
         // GET /expediente/:paciente_id 
-        api.get(`/expediente/${usuario?.id}`)
+        api.get(`/expediente/${usuario?.paciente_id ?? usuario?.id}`)
             .then(({ data }) => setExpediente(data))
             .catch(console.error)
             .finally(() => setLoading(false));

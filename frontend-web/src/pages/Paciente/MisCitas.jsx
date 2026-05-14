@@ -20,7 +20,7 @@ export default function MisCitas () {
             .then(({data}) => {
                 // Filtramos solo las citas del paciente autenticado
                 const misCitas = data.filter(c =>
-                (c.paciente_id ?? c.pacienteId) === usuario?.id
+                (c.paciente_id ?? c.pacienteId) === (usuario?.paciente_id ?? usuario?.id)
                 );
                 setCitas(misCitas);
             })
